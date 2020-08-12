@@ -5,9 +5,6 @@
 class Game
 {
 private:
-	Image testImage;
-	Texture testTexture;
-
 	Camera2D camera;
 
 	float deltaTime;
