@@ -5,7 +5,7 @@ int main()
 {
 	Game game;
 
-	InitWindow(1080, 1080, "Hello, world!");
+	InitWindow(1024, 1024, "Hello, world!");
 
 	game.Init();
 

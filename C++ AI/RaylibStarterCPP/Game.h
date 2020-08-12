@@ -8,6 +8,8 @@ private:
 	Image testImage;
 	Texture testTexture;
 
+	Camera2D camera;
+
 	float deltaTime;
 
 	float position = 50.0f;
