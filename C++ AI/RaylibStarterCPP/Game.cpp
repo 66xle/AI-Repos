@@ -1,7 +1,9 @@
 #include "Game.h"
 #include <sstream>	//String stream, used for the FPS counter
 #include "Player.h"
+#include "Agent.h"
 
+Agent* monster = new Agent();
 Player* player = new Player();
 
 void Game::Init()
@@ -12,10 +14,14 @@ void Game::Init()
 	player->texture = LoadTextureFromImage(image);
 	player->position = { 100, 50 };
 
+	image = LoadImage("Monster.png");
+	monster->texture = LoadTextureFromImage(image);
+	monster->position = { 130, 80 };
+
 
 	camera.offset = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
 	camera.rotation = 0.0f;
-	camera.zoom = 2.5f;
+	camera.zoom = 3.0f;
 
 	camera.target = player->position;
 }
@@ -51,6 +57,7 @@ void Game::Draw()
 		BeginMode2D(camera);
 
 			player->Draw();
+			monster->Draw();
 
 		EndMode2D();
 

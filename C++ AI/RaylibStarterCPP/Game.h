@@ -8,8 +8,6 @@ private:
 	Camera2D camera;
 
 	float deltaTime;
-
-	float position = 50.0f;
 public:
 	Game() {}
 

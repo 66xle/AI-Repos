@@ -150,13 +150,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="Behaviour.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Vector2Math.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Vector2Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
