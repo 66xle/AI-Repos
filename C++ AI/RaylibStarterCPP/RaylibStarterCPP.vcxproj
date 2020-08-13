@@ -154,6 +154,8 @@
     <ClCompile Include="Behaviour.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Vector2Math.cpp" />
   </ItemGroup>
@@ -161,6 +163,8 @@
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Behaviour.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Graph.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Vector2Math.h" />
   </ItemGroup>
