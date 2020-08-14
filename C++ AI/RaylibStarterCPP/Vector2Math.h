@@ -1,6 +1,6 @@
 #pragma once
+#include <math.h>
 #include "raylib.h"
-
 
 Vector2 operator *(Vector2 vec, float deltaTime);
 Vector2 operator *(Vector2 lhs, Vector2 rhs);

@@ -1,11 +1,8 @@
 #pragma once
+#include <vector>
 #include "Behaviour.h"
 #include "State.h"
 #include "Transition.h"
-
-class State;
-class Transition;
-class Condition;
 
 class FiniteStateMachine : public Behaviour
 {

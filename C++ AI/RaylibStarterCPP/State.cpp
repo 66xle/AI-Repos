@@ -1,5 +1,4 @@
 #include "State.h"
-#include "State.h"
 
 Transition* State::getTriggeredTransition(Agent* agent)
 {

@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "Vector2Math.h"
 
+class Node;
 
 class Player
 {

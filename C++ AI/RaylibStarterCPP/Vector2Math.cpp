@@ -1,5 +1,4 @@
 #include "Vector2Math.h"
-#include <math.h>
 
 Vector2 operator *(Vector2 vec, float deltaTime)
 {

@@ -13,7 +13,6 @@ public:
 	Vector2 position = { 0, 0 };
 	Vector2 velocity = { 0, 0 };
 	float rotation = 0;
-	float maxSpeed = 200;
 
 	Agent();
 	~Agent();

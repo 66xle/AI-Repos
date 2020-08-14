@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
+#include "Transition.h"
 
 class Agent;
-class Transition;
 
 class State
 {
 public:
-	State();
-	virtual ~State();
+	State() {}
+	virtual ~State() {}
 
 	virtual void Update(Agent* agent, float deltaTime) = 0;
 	virtual void Init(Agent* agent) {};

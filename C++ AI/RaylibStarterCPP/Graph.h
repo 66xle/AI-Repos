@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "Node.h"
 
 #define GRAPH_SIZE 15

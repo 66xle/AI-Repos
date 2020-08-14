@@ -1,7 +1,8 @@
 #include "Game.h"
-#include <sstream>	//String stream, used for the FPS counter
 
 Agent* monster = new Agent();
+FiniteStateMachine monsterBehaviour;
+
 Player* player = new Player();
 
 Rectangle rec;
@@ -12,6 +13,7 @@ Node* goal;
 
 void Game::Init()
 {
+	// Set Graph Goal
 	goal = &graph.nodes[1][1];
 
 	SetTargetFPS(60);
@@ -25,6 +27,7 @@ void Game::Init()
 	monster->texture = LoadTextureFromImage(image);
 	monster->position = { 130, 80 };
 
+	// Map Setup
 	cropImage = &LoadImage("Map.png");
 
 	rec.x = 153;
@@ -36,10 +39,17 @@ void Game::Init()
 
 	map = LoadTextureFromImage(*cropImage);
 	
-
+	// Camera Setup
 	camera.offset = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
 	camera.rotation = 0.0f;
 	camera.zoom = 3.0f;
+
+	// State Setup
+	auto chaseState = new ChaseState(player);
+
+	monster->AddBehaviour(&monsterBehaviour);
+	monsterBehaviour.AddState(chaseState);
+	monsterBehaviour.SetCurrentState(chaseState);
 }
 
 void Game::Shutdown()
@@ -53,6 +63,8 @@ void Game::Update()
 
 	player->PlayerMovement(deltaTime);
 	camera.target = player->position;
+
+	monster->Update(deltaTime);
 
 	bool stopLoop = false;
 	for (int x = 0; x < GRAPH_SIZE; x++)
