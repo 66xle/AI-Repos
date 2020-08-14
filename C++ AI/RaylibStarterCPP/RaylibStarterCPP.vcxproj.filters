@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\FSM">
+      <UniqueIdentifier>{95d59cc3-882e-4d03-aa42-7d2b7dfcdfd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{2500c183-9350-420b-8218-237863d5fb57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FSM">
+      <UniqueIdentifier>{763d95b2-001b-4b18-8535-d2c3f568d78c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{31e7879b-1dab-4236-9c3f-a2b7917029bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Condition">
+      <UniqueIdentifier>{58006a20-602f-4a68-bae8-24745b1f6493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Condition">
+      <UniqueIdentifier>{da103433-4358-482f-9d29-0b6bfb5f171b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntryPoint.cpp">
@@ -39,20 +57,26 @@
     <ClCompile Include="Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="FiniteStateMachine.cpp">
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="Transition.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
     <ClCompile Include="Condition.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
-    <ClCompile Include="FiniteStateMachine.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PatrolState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="LOSLostCondition.cpp">
+      <Filter>Source Files\Condition</Filter>
     </ClCompile>
     <ClCompile Include="ChaseState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,20 +101,26 @@
     <ClInclude Include="Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FiniteStateMachine.h">
+      <Filter>Header Files\FSM</Filter>
+    </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="Transition.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
     <ClInclude Include="Condition.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
-    <ClInclude Include="FiniteStateMachine.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PatrolState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="LOSLostCondition.h">
+      <Filter>Header Files\Condition</Filter>
     </ClInclude>
     <ClInclude Include="ChaseState.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

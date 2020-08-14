@@ -158,7 +158,9 @@
     <ClCompile Include="FiniteStateMachine.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="LOSLostCondition.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PatrolState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Transition.cpp" />
@@ -172,7 +174,9 @@
     <ClInclude Include="FiniteStateMachine.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="LOSLostCondition.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="PatrolState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Transition.h" />
