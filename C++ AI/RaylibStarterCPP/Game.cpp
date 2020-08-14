@@ -40,8 +40,6 @@ void Game::Init()
 	camera.offset = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
 	camera.rotation = 0.0f;
 	camera.zoom = 3.0f;
-
-	camera.target = player->position;
 }
 
 void Game::Shutdown()
@@ -56,14 +54,28 @@ void Game::Update()
 	player->PlayerMovement(deltaTime);
 	camera.target = player->position;
 
-	for (int x = 0; x < 15; x++)
+	bool stopLoop = false;
+	for (int x = 0; x < GRAPH_SIZE; x++)
 	{
-		for (int y = 0; y < 15; y++)
+		for (int y = 0; y < GRAPH_SIZE; y++)
 		{
-			if (player->position.x == graph.nodes[x][y].position.x && player->position.y == graph.nodes[x][y].position.y)
+			if (player->IsNear(&graph.nodes[x][y]))
 			{
 				goal = &graph.nodes[x][y];
+				graph.ResetNodes();
+
+				if (IsKeyPressed(KEY_SPACE))
+				{
+					graph.nodes[x][y] = graph.nodes[x][y].BlockNode();
+				}
+
+				stopLoop = true;
+				break;
 			}
+		}
+		if (stopLoop)
+		{
+			break;
 		}
 	}
 
@@ -75,7 +87,7 @@ void Game::Draw()
 
 	std::stringstream fpsCounter;
 
-	fpsCounter << "FPS: " << GetFPS() << ", " << player->position.x << ", " << player->position.y;
+	fpsCounter << "FPS: " << GetFPS() << ", Position: " << player->position.x << ", " << player->position.y;
 
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
@@ -99,17 +111,17 @@ void Game::Draw()
 				position.y += 16;
 			}
 
-			graph.Draw();
+			graph.ClearPrevious();
 			std::vector<Node*> path = graph.AStar(&graph.nodes[0][0], goal);
+			graph.Draw();
 
-			for (int i = 0; i < path.size() - 1; i++)
+			for (int i = 0; i < (path.size() - 1) && path.size() > 0; i++)
 			{
-				DrawLineEx(path[i]->position, path[(int)i + 1]->position, 1.5, BLUE);
+				DrawLineEx(path[i]->position, path[(size_t)i + 1]->position, 1.5, BLUE);
 			}
 
 			player->Draw();
 			monster->Draw();
-			DrawCircle(player->position.x, player->position.y, 1, BLACK);
 
 		EndMode2D();
 

@@ -19,6 +19,10 @@ public:
 
 	void Draw() const;
 
+	void ResetNodes();
+
+	void ClearPrevious();
+
 private:
 	void ConnectNodesIfPossible(int xCoord1, int yCoord1, int xCoord2, int yCoord2);
 };

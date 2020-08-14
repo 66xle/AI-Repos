@@ -17,8 +17,8 @@ void Agent::Update(float deltaTime)
 	{
 		Vector2 force = behaviourVec[i]->Update(this, deltaTime);
 
-		velocity = velocity + (force * deltaTime);
-		position = position + (velocity * deltaTime);
+		this->velocity = velocity + (force * deltaTime);
+		this->position = position + (velocity * deltaTime);
 	}
 }
 
@@ -26,8 +26,8 @@ void DrawTextureWithPivot(const Texture& tex, Vector2 pos, Vector2 pivot, float 
 {
 	Vector2 offset = pivot * -1;
 
-	float cosTheta = cos(rotation * DEG2RAD);
-	float sinTheta = sin(rotation * DEG2RAD);
+	float cosTheta = cos((double)rotation * DEG2RAD);
+	float sinTheta = sin((double)rotation * DEG2RAD);
 
 	Vector2 rotatedOffset;
 

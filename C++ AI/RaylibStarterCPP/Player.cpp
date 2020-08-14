@@ -43,7 +43,36 @@ void Player::PlayerMovement(float deltaTime)
 	}
 }
 
+void Player::DrawTextureWithPivot(const Texture& tex, Vector2 pos, Vector2 pivot, float rotation)
+{
+	Vector2 offset = pivot * -1;
+
+	float cosTheta = cos(rotation * DEG2RAD);
+	float sinTheta = sin(rotation * DEG2RAD);
+
+	Vector2 rotatedOffset;
+
+	rotatedOffset.x = offset.x * cosTheta + offset.y * -sinTheta;
+	rotatedOffset.y = offset.x * sinTheta + offset.y * cosTheta;
+
+	DrawTextureEx(tex, pos + rotatedOffset, rotation, 1, WHITE);
+}
+
 void Player::Draw()
 {
-	DrawTextureEx(texture, position, 0, 1.0f, WHITE);
+	Vector2 pivot = { texture.width / 2, texture.height / 2 };
+	DrawTextureWithPivot(texture, position, pivot, 0);
+}
+
+bool Player::IsNear(Node* node)
+{
+	float dx = abs(position.x - node->position.x);
+	float dy = abs(position.y - node->position.y);
+	float radius = 16;
+
+	if ((dx * dx) + (dy * dy) <= radius * radius)
+	{
+		return true;
+	}
+	return false;
 }

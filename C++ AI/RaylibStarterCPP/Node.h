@@ -17,5 +17,7 @@ public:
 	bool visited = false;
 
 	Node* previous = nullptr;
+
+	Node BlockNode();
 };
 

@@ -150,6 +150,28 @@ void Graph::Draw() const
 	}
 }
 
+void Graph::ResetNodes()
+{
+	for (int x = 0; x < GRAPH_SIZE; x++)
+	{
+		for (int y = 0; y < GRAPH_SIZE; y++)
+		{
+			nodes[x][y].visited = false;
+		}
+	}
+}
+
+void Graph::ClearPrevious()
+{
+	for (int x = 0; x < GRAPH_SIZE; x++)
+	{
+		for (int y = 0; y < GRAPH_SIZE; y++)
+		{
+			nodes[x][y].previous = nullptr;
+		}
+	}
+}
+
 void Graph::ConnectNodesIfPossible(int xCoord1, int yCoord1, int xCoord2, int yCoord2)
 {
 	if (xCoord1 == xCoord2 && yCoord1 == yCoord2)

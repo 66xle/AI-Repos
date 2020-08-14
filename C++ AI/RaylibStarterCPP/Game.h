@@ -16,11 +16,8 @@ public:
 	Game() {}
 
 	void Init();
-
 	void Shutdown();
-
 	void Update();
-
 	void Draw();
 
 };
