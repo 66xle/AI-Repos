@@ -25,7 +25,7 @@ void Game::Init()
 	// Monster
 	image = LoadImage("Monster.png");
 	monster->texture = LoadTextureFromImage(image);
-	monster->position = { 130, 80 };
+	monster->position = { 300, 100 };
 
 	// Map Setup
 	cropImage = &LoadImage("Map.png");

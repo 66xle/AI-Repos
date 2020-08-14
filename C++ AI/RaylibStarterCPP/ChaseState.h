@@ -13,6 +13,6 @@ public:
 
 private:
 	Player* target;
-	float maxSpeed = 1000;
+	float maxSpeed = 3000;
 };
 
