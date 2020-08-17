@@ -51,7 +51,7 @@ void PatrolState::Init(Agent* agent)
 		{
 			float dx = abs(agent->position.x - graph->nodes[x][y].position.x);
 			float dy = abs(agent->position.y - graph->nodes[x][y].position.y);
-			float radius = 16;
+			float radius = 30;
 
 			if ((dx * dx) + (dy * dy) <= radius * radius)
 			{

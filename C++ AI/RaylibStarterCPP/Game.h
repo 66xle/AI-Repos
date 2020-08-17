@@ -4,9 +4,13 @@
 #include "Graph.h"
 #include "Player.h"
 #include "Agent.h"
+#include "Map.h"
 #include "FiniteStateMachine.h"
 
 #include "ChaseState.h"
+#include "PatrolState.h"
+
+#include "LOSLostCondition.h"
 
 class Game
 {

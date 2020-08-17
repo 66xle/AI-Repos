@@ -5,14 +5,13 @@ FiniteStateMachine monsterBehaviour;
 
 Player* player = new Player();
 
-Rectangle rec;
-Texture map;
-
-Image* cropImage;
+Map* map = new Map();
 Node* goal;
 
 void Game::Init()
 {
+	map->MapSetup();
+
 	// Set Graph Goal
 	goal = &graph.nodes[1][1];
 
@@ -27,34 +26,34 @@ void Game::Init()
 	monster->texture = LoadTextureFromImage(image);
 	monster->position = { 300, 100 };
 
-	// Map Setup
-	cropImage = &LoadImage("Map.png");
-
-	rec.x = 153;
-	rec.y = 34;
-	rec.width = 16;
-	rec.height = 16;
-
-	ImageCrop(cropImage, rec);
-
-	map = LoadTextureFromImage(*cropImage);
 	
 	// Camera Setup
 	camera.offset = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
 	camera.rotation = 0.0f;
 	camera.zoom = 3.0f;
 
-	// State Setup
-	auto chaseState = new ChaseState(player);
+	// Create States
+	ChaseState* chaseState = new ChaseState(player);
+	PatrolState* patrolState = new PatrolState(&graph);
+	// Create Conditions
+	LOSLostCondition* losLostCondition = new LOSLostCondition(monster);
+	// Create Transitions
+	Transition* toPatrolTransition = new Transition(patrolState, losLostCondition);
+	// Add Transition
+	chaseState->AddTransition(toPatrolTransition);
 
 	monster->AddBehaviour(&monsterBehaviour);
 	monsterBehaviour.AddState(chaseState);
+	monsterBehaviour.AddState(patrolState);
 	monsterBehaviour.SetCurrentState(chaseState);
+
 }
 
 void Game::Shutdown()
 {
 	delete player;
+	delete monster;
+	delete map;
 }
 
 void Game::Update()
@@ -108,20 +107,8 @@ void Game::Draw()
 
 		// Game World
 		BeginMode2D(camera);
-			
-			Vector2 position = { -32, -32 };
 
-
-			for (int x = 0; x < 33; x++)
-			{
-				for (int y = 0; y < 33; y++)
-				{
-					position.x += 16;
-					DrawTextureEx(map, position, 0.0f, 1.0f, WHITE);
-				}
-				position.x = -32;
-				position.y += 16;
-			}
+			map->DrawMap();
 
 			graph.ClearPrevious();
 			std::vector<Node*> path = graph.AStar(&graph.nodes[0][0], goal);

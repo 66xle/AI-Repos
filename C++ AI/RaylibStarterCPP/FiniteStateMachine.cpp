@@ -18,9 +18,9 @@ eBehaviourResult FiniteStateMachine::Execute(Agent* agent, float deltaTime)
 
 		if (transition != nullptr)
 		{
-			currentState->Exit(agent);
-			currentState = transition->getTargetState();
-			currentState->Init(agent);
+			currentState->Exit(agent); // Exit current state
+			currentState = transition->getTargetState(); // Get new state
+			currentState->Init(agent); // Start new state
 		}
 
 		currentState->Update(agent, deltaTime);

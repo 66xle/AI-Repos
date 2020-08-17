@@ -6,7 +6,7 @@ Graph::Graph()
 	{
 		for (int y = 0; y < GRAPH_SIZE; y++)
 		{
-			nodes[x][y].position = { (float)x * NODE_SPACING + NODE_SPACING * 0.5f, (float)y * NODE_SPACING + NODE_SPACING * 0.5f };
+			nodes[x][y].position = { (float)x * NODE_SPACING + NODE_SPACING + 15.0f, (float)y * NODE_SPACING + NODE_SPACING + 15.0f };
 
 			for (int xOffset = -1; xOffset <= 1; xOffset++)
 			{
