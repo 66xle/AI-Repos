@@ -5,6 +5,8 @@ FiniteStateMachine monsterBehaviour;
 
 Player* player = new Player();
 
+Graph* graph = new Graph();
+
 Map* map = new Map();
 Node* goal;
 
@@ -13,7 +15,7 @@ void Game::Init()
 	map->MapSetup();
 
 	// Set Graph Goal
-	goal = &graph.nodes[1][1];
+	goal = &graph->nodes[1][1];
 
 	SetTargetFPS(60);
 
@@ -30,11 +32,11 @@ void Game::Init()
 	// Camera Setup
 	camera.offset = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
 	camera.rotation = 0.0f;
-	camera.zoom = 3.0f;
+	camera.zoom = 2.0f;
 
 	// Create States
 	ChaseState* chaseState = new ChaseState(player);
-	PatrolState* patrolState = new PatrolState(&graph);
+	PatrolState* patrolState = new PatrolState(graph);
 	// Create Conditions
 	LOSLostCondition* losLostCondition = new LOSLostCondition(monster);
 	// Create Transitions
@@ -54,6 +56,7 @@ void Game::Shutdown()
 	delete player;
 	delete monster;
 	delete map;
+	delete graph;
 }
 
 void Game::Update()
@@ -70,14 +73,14 @@ void Game::Update()
 	{
 		for (int y = 0; y < GRAPH_SIZE; y++)
 		{
-			if (player->IsNear(&graph.nodes[x][y]))
+			if (player->IsNear(&graph->nodes[x][y]))
 			{
-				goal = &graph.nodes[x][y];
-				graph.ResetNodes();
+				goal = &graph->nodes[x][y];
+				graph->ResetNodes();
 
 				if (IsKeyPressed(KEY_SPACE))
 				{
-					graph.nodes[x][y] = graph.nodes[x][y].BlockNode();
+					graph->nodes[x][y] = graph->nodes[x][y].BlockNode();
 				}
 
 				stopLoop = true;
@@ -103,16 +106,16 @@ void Game::Draw()
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
 
-		ClearBackground(WHITE);
+		ClearBackground(BLACK);
 
 		// Game World
 		BeginMode2D(camera);
 
-			map->DrawMap();
+			map->DrawMap(graph);
 
-			graph.ClearPrevious();
-			std::vector<Node*> path = graph.AStar(&graph.nodes[0][0], goal);
-			graph.Draw();
+			graph->ClearPrevious();
+			std::vector<Node*> path = graph->AStar(&graph->nodes[0][0], goal);
+			graph->Draw();
 
 			for (int i = 0; i < (path.size() - 1) && path.size() > 0; i++)
 			{

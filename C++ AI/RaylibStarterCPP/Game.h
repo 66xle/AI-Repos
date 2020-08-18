@@ -17,8 +17,6 @@ class Game
 private:
 	Camera2D camera;
 
-	Graph graph;
-
 	float deltaTime;
 public:
 	Game() {}
