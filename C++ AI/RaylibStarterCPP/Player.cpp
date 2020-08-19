@@ -125,8 +125,8 @@ bool Player::WallCollision(Vector2 position, Map map)
 {
 	BoundingBox playerBox;
 	Vector3 adjust = { 0, 0, 0 };
-	playerBox.min = adjust + (position - 8.0f);
-	playerBox.max = adjust + (position + 8.0f);
+	playerBox.min = adjust + (position - 7.0f);
+	playerBox.max = adjust + (position + 7.0f);
 
 	for (BoundingBox box : map.walls)
 	{

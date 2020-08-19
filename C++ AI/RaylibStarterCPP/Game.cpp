@@ -22,13 +22,12 @@ void Game::Init()
 	// Player
 	Image image = LoadImage("Player.png");
 	player->texture = LoadTextureFromImage(image);
-	player->position = { 300, 50 };
+	player->position = { 50, 50 };
 	// Monster
 	image = LoadImage("Monster.png");
 	monster->texture = LoadTextureFromImage(image);
 	monster->position = { 300, 100 };
 
-	
 	// Camera Setup
 	camera.offset = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
 	camera.rotation = 0.0f;
@@ -100,8 +99,8 @@ void Game::Draw()
 {
 	std::stringstream fpsCounter;
 
-	//fpsCounter << "FPS: " << GetFPS() << ", Position: " << player->position.x << ", " << player->position.y;
-	fpsCounter << "FPS: " << GetFPS() << ", Direction: " << monster->raycast.ray.direction.x << ", " << monster->raycast.ray.direction.y;
+	fpsCounter << "FPS: " << GetFPS() << ", Position: " << player->position.x << ", " << player->position.y;
+	//fpsCounter << "FPS: " << GetFPS() << ", Direction: " << monster->raycast.ray.direction.x << ", " << monster->raycast.ray.direction.y;
 
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
@@ -117,7 +116,7 @@ void Game::Draw()
 			std::vector<Node*> path = graph->AStar(&graph->nodes[0][0], goal);
 			graph->Draw();
 
-			monster->raycast.Cast(map->walls, *monster); // Raycast
+			//monster->raycast.Cast(map->walls, *monster); // Raycast
 
 
 			for (int i = 0; i < (path.size() - 1) && path.size() > 0; i++)

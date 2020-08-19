@@ -7,7 +7,7 @@ void PatrolState::Update(Agent* agent, float deltaTime)
 
 	// Set Rotation facing Target
 	agent->rotation = atan2f(targetPath->position.y - agent->position.y, targetPath->position.x - agent->position.x);
-	//agent->raycast.Cast(walls, *agent);
+	agent->raycast.Cast(walls, *agent);
 
 	Vector2 force = Vector2Normalise(velocity) * maxSpeed;
 

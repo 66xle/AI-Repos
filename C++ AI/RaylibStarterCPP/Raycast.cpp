@@ -6,16 +6,12 @@ void Raycast::Cast(std::vector<BoundingBox> walls, Agent agent)
 {
 	Vector3 adjustPosition = { 0, 0, 0 };
 	ray.position = adjustPosition + agent.position;
-	ray.direction = { (float)(100 * cos(agent.rotation) * RAD2DEG) + agent.position.x, (float)(100 * sin(agent.rotation) * RAD2DEG) + agent.position.y, 0 };
-
-	DrawRay(ray, RED);
+	ray.direction = { (float)(30 * cos(agent.rotation) * RAD2DEG ) + agent.position.x, (float)(30 * sin(agent.rotation) * RAD2DEG) + agent.position.y, 0 };
 
 	for (BoundingBox box : walls)
 	{
 		if (CheckCollisionRayBox(ray, box))
 		{
-			DrawCircle(box.min.x + 16, box.min.y + 16, 5, PURPLE);
-
 			//Vector2 boxMiddle = { box.min.x + 16.0f, box.min.y + 16.0f };
 
 			//float angle = atan2(ray.position.y - boxMiddle.y, ray.position.x - boxMiddle.x );
@@ -66,5 +62,6 @@ void Raycast::Cast(std::vector<BoundingBox> walls, Agent agent)
 		}
 	}
 
-	//DrawLineEx({ ray.position.x, ray.position.y }, { ray.direction.x, ray.direction.y }, 1.0f, RED);
+	ray.direction = { (float)(30 * cos(agent.rotation)) + agent.position.x, (float)(30 * sin(agent.rotation)) + agent.position.y, 0 };
+
 }
