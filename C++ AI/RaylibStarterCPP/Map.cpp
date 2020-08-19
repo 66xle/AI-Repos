@@ -13,19 +13,19 @@ void Map::MapSetup(Graph* graph)
 			position.x = x * 32;
 			position.y = y * 32;
 
-			if (x - 1 >= 0 && y - 1 >= 0 && x - 1 <= 14 && y - 1 <= 14)
+			if (mapArray[x][y] == 'W')
 			{
-				if (mapArray[x][y] == 'W')
+				if (x - 1 >= 0 && y - 1 >= 0 && x - 1 <= 14 && y - 1 <= 14)
 				{
 					graph->nodes[x - 1][y - 1].BlockNode();
-
-					// Create Wall
-					BoundingBox box;
-					Vector3 vec3 = { 0, 0, 0 };
-					box.min = vec3 + position;
-					box.max = vec3 + (position + 32.0f);
-					walls.push_back(box);
 				}
+
+				// Create Wall
+				BoundingBox box;
+				Vector3 vec3 = { 0, 0, 0 };
+				box.min = vec3 + position;
+				box.max = vec3 + (position + 32.0f);
+				walls.push_back(box);
 			}
 		}
 	}

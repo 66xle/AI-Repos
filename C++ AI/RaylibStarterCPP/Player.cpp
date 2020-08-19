@@ -1,44 +1,88 @@
 #include "Player.h"
 
-void Player::PlayerMovement(float deltaTime)
+void Player::PlayerMovement(float deltaTime, Map map)
 {
+	Vector2 tempPosition = position;
 	if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D))
 	{
-		position.y -= 70 * deltaTime;
-		position.x += 70 * deltaTime;
+		tempPosition.y -= 70;
+		tempPosition.x += 70;
+		if (WallCollision(tempPosition, map) == false)
+		{
+			position.y -= 70 * deltaTime;
+			position.x += 70 * deltaTime;
+		}
 	}
 	else if (IsKeyDown(KEY_W) && IsKeyDown(KEY_A))
 	{
-		position.y -= 70 * deltaTime;
-		position.x -= 70 * deltaTime;
+		tempPosition = position;
+		tempPosition.y -= 70 * deltaTime;
+		tempPosition.x -= 70 * deltaTime;
+		if (WallCollision(tempPosition, map) == false)
+		{
+			position.y -= 70 * deltaTime;
+			position.x -= 70 * deltaTime;
+		}
 	}
 	else if (IsKeyDown(KEY_S) && IsKeyDown(KEY_D))
 	{
-		position.y += 70 * deltaTime;
-		position.x += 70 * deltaTime;
+		tempPosition = position;
+		tempPosition.y += 70 * deltaTime;
+		tempPosition.x += 70 * deltaTime;
+		if (WallCollision(tempPosition, map) == false)
+		{
+			position.y += 70 * deltaTime;
+			position.x += 70 * deltaTime;
+		}
 	}
 	else if (IsKeyDown(KEY_S) && IsKeyDown(KEY_A))
 	{
-		position.y += 70 * deltaTime;
-		position.x -= 70 * deltaTime;
+		tempPosition = position;
+		tempPosition.y += 70 * deltaTime;
+		tempPosition.x -= 70 * deltaTime;
+		if (WallCollision(tempPosition, map) == false)
+		{
+			position.y += 70 * deltaTime;
+			position.x -= 70 * deltaTime;
+		}
 	}
 	else
 	{
 		if (IsKeyDown(KEY_W))
 		{
-			position.y -= 100 * deltaTime;
+			tempPosition = position;
+			tempPosition.y -= 100 * deltaTime;
+			if (WallCollision(tempPosition, map) == false)
+			{
+				position.y -= 100 * deltaTime;
+			}
 		}
 		if (IsKeyDown(KEY_S))
 		{
-			position.y += 100 * deltaTime;
+			tempPosition = position;
+			tempPosition.y += 100 * deltaTime;
+			if (WallCollision(tempPosition, map) == false)
+			{
+				position.y += 100 * deltaTime;
+			}
 		}
 		if (IsKeyDown(KEY_A))
 		{
-			position.x -= 100 * deltaTime;
+			tempPosition = position;
+			tempPosition.x -= 100 * deltaTime;
+			if (WallCollision(tempPosition, map) == false)
+			{
+				position.x -= 100 * deltaTime;
+			}
 		}
 		if (IsKeyDown(KEY_D))
 		{
-			position.x += 100 * deltaTime;
+			tempPosition = position;
+			tempPosition.x += 100 * deltaTime;
+			if (WallCollision(tempPosition, map) == false)
+			{
+				position.x += 100 * deltaTime;
+			}
 		}
 	}
 }
@@ -74,5 +118,23 @@ bool Player::IsNear(Node* node)
 	{
 		return true;
 	}
+	return false;
+}
+
+bool Player::WallCollision(Vector2 position, Map map)
+{
+	BoundingBox playerBox;
+	Vector3 adjust = { 0, 0, 0 };
+	playerBox.min = adjust + (position - 8.0f);
+	playerBox.max = adjust + (position + 8.0f);
+
+	for (BoundingBox box : map.walls)
+	{
+		if (CheckCollisionBoxes(box, playerBox))
+		{
+			return true;
+		}
+	}
+
 	return false;
 }

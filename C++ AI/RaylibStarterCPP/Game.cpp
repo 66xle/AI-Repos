@@ -63,7 +63,7 @@ void Game::Update()
 {
 	deltaTime = GetFrameTime();
 
-	player->PlayerMovement(deltaTime);
+	player->PlayerMovement(deltaTime, *map);
 	camera.target = player->position;
 
 	monster->Update(deltaTime);

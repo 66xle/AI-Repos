@@ -1,7 +1,6 @@
 #pragma once
 #include "Tile.h"
 #include "Graph.h"
-#include "Boundary.h"
 #include "Vector2Math.h"
 
 class Map
@@ -14,7 +13,6 @@ public:
 	std::vector<BoundingBox> walls;
 	
 private:
-
 	Tile LoadTexture(int x, int y, bool collision);
 
 	std::vector<Tile> textures;

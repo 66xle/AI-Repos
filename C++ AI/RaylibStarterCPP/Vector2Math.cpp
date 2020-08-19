@@ -56,6 +56,14 @@ Vector2 operator - (Vector2 lhs, Vector2 rhs)
 	return lhs;
 }
 
+Vector2 operator-(Vector2 lhs, float value)
+{
+	lhs.x -= value;
+	lhs.y -= value;
+
+	return lhs;
+}
+
 Vector3 operator+(Vector3 lhs, Vector2 rhs)
 {
 	lhs.x += rhs.x;

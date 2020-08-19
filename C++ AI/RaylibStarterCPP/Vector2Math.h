@@ -12,6 +12,7 @@ Vector2 operator +(Vector2 lhs, Vector2 rhs);
 Vector2 operator +(Vector2 lhs, float value);
 
 Vector2 operator -(Vector2 lhs, Vector2 rhs);
+Vector2 operator -(Vector2 lhs, float value);
 
 Vector3 operator +(Vector3 lhs, Vector2 rhs);
 Vector3 operator -(Vector3 lhs, Vector3 rhs);
