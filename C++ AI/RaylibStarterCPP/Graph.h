@@ -8,8 +8,6 @@
 class Graph
 {
 public:
-	bool wallsAdded = false;
-
 	Node nodes[GRAPH_SIZE][GRAPH_SIZE];
 
 	Graph();

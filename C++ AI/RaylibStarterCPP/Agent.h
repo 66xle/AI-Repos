@@ -1,8 +1,10 @@
 #pragma once
 #include "Vector2Math.h"
+#include "Raycast.h"
 #include <vector>
 
 class Behaviour;
+class Raycast;
 
 class Agent
 {
@@ -13,6 +15,7 @@ public:
 	Vector2 position = { 0, 0 };
 	Vector2 velocity = { 0, 0 };
 	float rotation = 0;
+	Raycast raycast;
 
 	Agent();
 	~Agent();

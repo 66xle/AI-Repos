@@ -56,6 +56,24 @@ Vector2 operator - (Vector2 lhs, Vector2 rhs)
 	return lhs;
 }
 
+Vector3 operator+(Vector3 lhs, Vector2 rhs)
+{
+	lhs.x += rhs.x;
+	lhs.y += rhs.y;
+	lhs.z = 0;
+
+	return lhs;
+}
+
+Vector3 operator-(Vector3 lhs, Vector3 rhs)
+{
+	lhs.x -= rhs.x;
+	lhs.y -= rhs.y;
+	lhs.z = 0;
+
+	return lhs;
+}
+
 Vector2 Vector2Normalise(Vector2 vec)
 {
 	float magnitude = sqrtf((vec.x * vec.x) + (vec.y * vec.y));

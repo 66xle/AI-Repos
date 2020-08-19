@@ -1,17 +1,20 @@
 #pragma once
 #include "Tile.h"
 #include "Graph.h"
+#include "Boundary.h"
+#include "Vector2Math.h"
 
 class Map
 {
 public:
-	void MapSetup();
+	void MapSetup(Graph* graph);
 
 	void DrawMap(Graph* graph);
 
-	std::vector<Vector2> walls;
+	std::vector<BoundingBox> walls;
 	
 private:
+
 	Tile LoadTexture(int x, int y, bool collision);
 
 	std::vector<Tile> textures;

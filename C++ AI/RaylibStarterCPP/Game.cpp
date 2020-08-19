@@ -12,7 +12,7 @@ Node* goal;
 
 void Game::Init()
 {
-	map->MapSetup();
+	map->MapSetup(graph);
 
 	// Set Graph Goal
 	goal = &graph->nodes[1][1];
@@ -22,7 +22,7 @@ void Game::Init()
 	// Player
 	Image image = LoadImage("Player.png");
 	player->texture = LoadTextureFromImage(image);
-	player->position = { 100, 50 };
+	player->position = { 300, 50 };
 	// Monster
 	image = LoadImage("Monster.png");
 	monster->texture = LoadTextureFromImage(image);
@@ -36,7 +36,7 @@ void Game::Init()
 
 	// Create States
 	ChaseState* chaseState = new ChaseState(player);
-	PatrolState* patrolState = new PatrolState(graph);
+	PatrolState* patrolState = new PatrolState(graph, map->walls);
 	// Create Conditions
 	LOSLostCondition* losLostCondition = new LOSLostCondition(monster);
 	// Create Transitions
@@ -98,10 +98,10 @@ void Game::Update()
 
 void Game::Draw()
 {
-
 	std::stringstream fpsCounter;
 
-	fpsCounter << "FPS: " << GetFPS() << ", Position: " << player->position.x << ", " << player->position.y;
+	//fpsCounter << "FPS: " << GetFPS() << ", Position: " << player->position.x << ", " << player->position.y;
+	fpsCounter << "FPS: " << GetFPS() << ", Direction: " << monster->raycast.ray.direction.x << ", " << monster->raycast.ray.direction.y;
 
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
@@ -117,6 +117,9 @@ void Game::Draw()
 			std::vector<Node*> path = graph->AStar(&graph->nodes[0][0], goal);
 			graph->Draw();
 
+			monster->raycast.Cast(map->walls, *monster); // Raycast
+
+
 			for (int i = 0; i < (path.size() - 1) && path.size() > 0; i++)
 			{
 				DrawLineEx(path[i]->position, path[(size_t)i + 1]->position, 1.5, BLUE);
@@ -124,11 +127,9 @@ void Game::Draw()
 
 			player->Draw();
 			monster->Draw();
-
 		EndMode2D();
 
 		DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
 
 	EndDrawing();	//...and before this one.
-
 }

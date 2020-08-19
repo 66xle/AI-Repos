@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="Behaviour.cpp" />
+    <ClCompile Include="Boundary.cpp" />
     <ClCompile Include="ChaseState.cpp" />
     <ClCompile Include="Condition.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="PatrolState.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Raycast.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Transition.cpp" />
@@ -171,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="Boundary.h" />
     <ClInclude Include="ChaseState.h" />
     <ClInclude Include="Condition.h" />
     <ClInclude Include="FiniteStateMachine.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="PatrolState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Raycast.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Transition.h" />
