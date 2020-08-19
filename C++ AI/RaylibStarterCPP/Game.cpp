@@ -32,7 +32,7 @@ void Game::Init()
 	// Camera Setup
 	camera.offset = { (float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 };
 	camera.rotation = 0.0f;
-	camera.zoom = 2.0f;
+	camera.zoom = 5.0f;
 
 	// Create States
 	ChaseState* chaseState = new ChaseState(player);

@@ -30,7 +30,7 @@ void DrawTextureWithPivot(const Texture& tex, Vector2 pos, Vector2 pivot, float 
 
 	for (Ray ray : rays)
 	{
-		DrawLineEx({ ray.position.x, ray.position.y }, { ray.direction.x, ray.direction.y }, 1.0f, Fade(WHITE, 0.3));
+		DrawLineEx({ ray.position.x, ray.position.y }, { ray.direction.x, ray.direction.y }, 1.0f, Fade(RED, 0.2));
 	}
 
 	DrawTextureEx(tex, pos - rotatedOffset, 0, 0.2, WHITE);

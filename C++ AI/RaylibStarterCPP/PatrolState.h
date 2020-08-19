@@ -15,7 +15,7 @@ public:
 
 private:
 	Node* targetPath = nullptr;
-	Node* previousPath = nullptr;
+	std::vector<Node*> previousPath;
 
 	Graph* graph;
 	std::vector<Boundary> walls;

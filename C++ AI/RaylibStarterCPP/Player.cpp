@@ -2,11 +2,12 @@
 
 void Player::PlayerMovement(float deltaTime, Map map)
 {
-	Vector2 tempPosition = position;
+	Vector2 tempPosition;
 	if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D))
 	{
-		tempPosition.y -= 70;
-		tempPosition.x += 70;
+		tempPosition = position;
+		tempPosition.y -= 70 * deltaTime;
+		tempPosition.x += 70 * deltaTime;
 		if (WallCollision(tempPosition, map) == false)
 		{
 			position.y -= 70 * deltaTime;
@@ -125,8 +126,8 @@ bool Player::WallCollision(Vector2 position, Map map)
 {
 	BoundingBox playerBox;
 	Vector3 adjust = { 0, 0, 0 };
-	playerBox.min = adjust + (position - 7.0f);
-	playerBox.max = adjust + (position + 7.0f);
+	playerBox.min = adjust + (position - 6.5f);
+	playerBox.max = adjust + (position + 6.5f);
 
 	for (BoundingBox box : map.boxes)
 	{
@@ -135,6 +136,5 @@ bool Player::WallCollision(Vector2 position, Map map)
 			return true;
 		}
 	}
-
 	return false;
 }

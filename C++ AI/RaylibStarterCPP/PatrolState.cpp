@@ -1,4 +1,5 @@
 #include "PatrolState.h"
+#include <iostream>
 #include <time.h>
 
 void PatrolState::Update(Agent* agent, float deltaTime)
@@ -22,25 +23,40 @@ void PatrolState::Update(Agent* agent, float deltaTime)
 	if ((dx * dx) + (dy * dy) <= radius * radius)
 	{
 		std::vector<Node*> randomPath = targetPath->connections;
-
-		for (int i = 0; i < randomPath.size(); i++)
+		for (Node* previous : previousPath)
 		{
-			if (previousPath == randomPath[i])
+			for (int i = 0; i < randomPath.size(); i++)
 			{
-				randomPath.erase(randomPath.begin() + i);
-				break;
+				if (previous == randomPath[i])
+				{
+					randomPath.erase(randomPath.begin() + i);
+					break;
+				}
 			}
 		}
 		srand(time(NULL));
-		previousPath = targetPath;
-		targetPath = randomPath[rand() % randomPath.size()];
+		if (previousPath.size() >= 2)
+		{
+			previousPath.erase(previousPath.begin());
+		}
+		previousPath.push_back(targetPath);
+		if (randomPath.size() == 0)
+		{
+			std::cout << "No Path";
+			targetPath = targetPath->connections[0];
+		}
+		else
+		{
+			targetPath = randomPath[rand() % randomPath.size()];
+		}
+		
 	}
 }
 
 void PatrolState::Exit(Agent* agent)
 {
 	targetPath = nullptr;
-	previousPath = nullptr;
+	previousPath.clear();
 }
 
 void PatrolState::Init(Agent* agent)

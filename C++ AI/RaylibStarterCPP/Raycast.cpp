@@ -7,7 +7,7 @@ void Raycast::Cast(std::vector<Boundary> walls, Agent agent)
 	rays.clear();
 	float rayAngle = agent.rotation - (22.50f * DEG2RAD);
 
-	for (int i = 0; i < 45; i++)
+	for (float i = 0; i < 45; i += 0.5)
 	{
 		Ray ray;
 		Vector3 adjustPosition = { 0, 0, 0 };
@@ -53,7 +53,6 @@ void Raycast::Cast(std::vector<Boundary> walls, Agent agent)
 				}
 			}
 		}
-
 		rays.push_back(ray);
 	}
 
