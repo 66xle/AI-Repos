@@ -6,7 +6,7 @@
 class PatrolState : public State
 {
 public:
-	PatrolState(Graph* graph, std::vector<BoundingBox> walls): graph(graph), walls(walls) {}
+	PatrolState(Graph* graph, std::vector<Boundary> walls): graph(graph), walls(walls) {}
 	virtual ~PatrolState() {}
 
 	virtual void Update(Agent* agent, float deltaTime);
@@ -18,7 +18,7 @@ private:
 	Node* previousPath = nullptr;
 
 	Graph* graph;
-	std::vector<BoundingBox> walls;
+	std::vector<Boundary> walls;
 
 	float maxSpeed = 2500;
 };

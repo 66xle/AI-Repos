@@ -19,7 +19,7 @@ void Agent::Update(float deltaTime)
 	}
 }
 
-void DrawTextureWithPivot(const Texture& tex, Vector2 pos, Vector2 pivot, float rotation, Ray ray)
+void DrawTextureWithPivot(const Texture& tex, Vector2 pos, Vector2 pivot, float rotation, std::vector<Ray> rays)
 {
 	Vector2 offset = pivot * -1;
 
@@ -28,15 +28,20 @@ void DrawTextureWithPivot(const Texture& tex, Vector2 pos, Vector2 pivot, float 
 
 	Vector2 rotatedOffset = { 10, 15 };
 
+	for (Ray ray : rays)
+	{
+		DrawLineEx({ ray.position.x, ray.position.y }, { ray.direction.x, ray.direction.y }, 1.0f, Fade(WHITE, 0.3));
+	}
+
 	DrawTextureEx(tex, pos - rotatedOffset, 0, 0.2, WHITE);
 
-	DrawLineEx({ ray.position.x, ray.position.y }, { ray.direction.x, ray.direction.y }, 1.0f, RED);
+	//DrawLineEx(pos, { (float)(500 * cos(rotation)) + pos.x, (float)(500 * sin(rotation)) + pos.y }, 1.0f, RED);
 }
 
 void Agent::Draw()
 {
 	Vector2 pivot{ texture.width / 8, texture.height / 8 };
-	DrawTextureWithPivot(texture, position, pivot, rotation, raycast.ray);
+	DrawTextureWithPivot(texture, position, pivot, rotation, raycast.rays);
 }
 
 void Agent::AddBehaviour(Behaviour* behaviour)

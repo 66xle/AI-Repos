@@ -2,66 +2,63 @@
 #include "Agent.h"
 #include <iostream>
 
-void Raycast::Cast(std::vector<BoundingBox> walls, Agent agent)
+void Raycast::Cast(std::vector<Boundary> walls, Agent agent)
 {
-	Vector3 adjustPosition = { 0, 0, 0 };
-	ray.position = adjustPosition + agent.position;
-	ray.direction = { (float)(30 * cos(agent.rotation) * RAD2DEG ) + agent.position.x, (float)(30 * sin(agent.rotation) * RAD2DEG) + agent.position.y, 0 };
+	rays.clear();
+	float rayAngle = agent.rotation - (22.50f * DEG2RAD);
 
-	for (BoundingBox box : walls)
+	for (int i = 0; i < 45; i++)
 	{
-		if (CheckCollisionRayBox(ray, box))
+		Ray ray;
+		Vector3 adjustPosition = { 0, 0, 0 };
+		ray.position = adjustPosition + agent.position;
+		ray.direction = { (float)(500 * cos(rayAngle + (i * DEG2RAD))) + agent.position.x, (float)(500 * sin(rayAngle + (i * DEG2RAD))) + agent.position.y, 0 };
+
+		for (Boundary wall : walls)
 		{
-			//Vector2 boxMiddle = { box.min.x + 16.0f, box.min.y + 16.0f };
+			float x1 = wall.p1.x;
+			float y1 = wall.p1.y;
+			float x2 = wall.p2.x;
+			float y2 = wall.p2.y;
 
-			//float angle = atan2(ray.position.y - boxMiddle.y, ray.position.x - boxMiddle.x );
+			float x3 = ray.position.x;
+			float y3 = ray.position.y;
+			float x4 = ray.direction.x;
+			float y4 = ray.direction.y;
 
-			//angle /= 6.28319;
+			float den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+			if (den == 0)
+			{
+				continue;
+			}
 
-			//double x = 32.0;
-			//double y = 32.0;
-			//
-			//Vector3 direction;
-			//direction.z = 0.0f;
+			float t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / den;
+			float u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / den;
+			if (t > 0 && t < 1 && u > 0) // Raycast Collision
+			{
+				Vector2 point = { x1 + t * (x2 - x1), y1 + t * (y2 - y1) };
 
-			//float s1x = -atan2(y, x);
-			//float s1y = atan2(y, x);
+				double dx = (double)ray.position.x - point.x;
+				double dy = (double)ray.position.y - point.y;
+				float distance = sqrt((dx * dx) + (dy * dy));
 
-			//float s3x = PI - atan2(y, x);
-			//float s3y = PI + atan2(y, x);
+				double rx = (double)ray.position.x - ray.direction.x;
+				double ry = (double)ray.position.y - ray.direction.y;
+				float shortDistance = sqrt((rx * rx) + (ry * ry));
 
-			//float s2x = atan2(y, x);
-			//float s2y = PI - atan2(y, x);
-
-			//float s4x = PI + atan2(y, x);
-			//float s4y = -atan2(y, x);
-
-			//if (angle > -atan2(y, x) && angle <= atan2(y, x) || angle > (PI - atan2(y, x) && angle <= (PI + atan2(y, x)))) // East and West
-			//{
-			//	direction.x = boxMiddle.x + (x / 2);
-			//	direction.y = (x / 2 * tan(angle) + boxMiddle.y);
-			//}
-			//else if (angle > atan2(y, x) && angle <= (PI - atan2(y, x) || angle > (PI + atan2(y, x) && angle <= -atan2(y, x)))) // North and South
-			//{
-			//	direction.x = boxMiddle.x + y / (2 * tan(angle));
-			//	direction.y = y / 2 + boxMiddle.y;
-			//}
-
-			//double dx = (double)ray.position.x - direction.x;
-			//double dy = (double)ray.position.y - direction.y;
-			//float distance = sqrt((dx * dx) + (dy * dy));
-
-			//double rx = (double)ray.position.x - ray.direction.x;
-			//double ry = (double)ray.position.y - ray.direction.y;
-			//float shortDistance = sqrt((rx * rx) + (ry * ry));
-
-			//if (distance < shortDistance)
-			//{
-			//	ray.direction = direction;
-			//}
+				if (distance < shortDistance)
+				{
+					Vector3 adjust = { 0, 0, 0 };
+					ray.direction = adjust + point;
+				}
+			}
 		}
+
+		rays.push_back(ray);
 	}
 
-	ray.direction = { (float)(30 * cos(agent.rotation)) + agent.position.x, (float)(30 * sin(agent.rotation)) + agent.position.y, 0 };
+	
+
+	
 
 }

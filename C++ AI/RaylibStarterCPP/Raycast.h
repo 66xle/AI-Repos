@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "Boundary.h"
 #include <vector>
 
 class Agent;
@@ -7,8 +8,8 @@ class Agent;
 class Raycast
 {
 public:
-	Ray ray;
+	std::vector<Ray> rays;
 
-	void Cast(std::vector<BoundingBox> walls, Agent agent);
+	void Cast(std::vector<Boundary> walls, Agent agent);
 };
 

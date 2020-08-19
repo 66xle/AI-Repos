@@ -2,6 +2,7 @@
 #include "Tile.h"
 #include "Graph.h"
 #include "Vector2Math.h"
+#include "Boundary.h"
 
 class Map
 {
@@ -10,10 +11,13 @@ public:
 
 	void DrawMap(Graph* graph);
 
-	std::vector<BoundingBox> walls;
+	std::vector<Boundary> walls;
+	std::vector<BoundingBox> boxes;
 	
 private:
 	Tile LoadTexture(int x, int y, bool collision);
+
+	Boundary CreateWall(Vector2 p1, Vector2 p2);
 
 	std::vector<Tile> textures;
 

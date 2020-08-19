@@ -1,12 +1,13 @@
 #include "Game.h"
 
+// Monster
 Agent* monster = new Agent();
 FiniteStateMachine monsterBehaviour;
-
+// Player
 Player* player = new Player();
-
+// Pathfinding Graph
 Graph* graph = new Graph();
-
+// Map Textures, Collision
 Map* map = new Map();
 Node* goal;
 
@@ -43,11 +44,11 @@ void Game::Init()
 	// Add Transition
 	chaseState->AddTransition(toPatrolTransition);
 
+	// Set Behaviours
 	monster->AddBehaviour(&monsterBehaviour);
 	monsterBehaviour.AddState(chaseState);
 	monsterBehaviour.AddState(patrolState);
 	monsterBehaviour.SetCurrentState(chaseState);
-
 }
 
 void Game::Shutdown()
@@ -62,11 +63,14 @@ void Game::Update()
 {
 	deltaTime = GetFrameTime();
 
+
+	// Update Here
 	player->PlayerMovement(deltaTime, *map);
 	camera.target = player->position;
 
 	monster->Update(deltaTime);
 
+	// Debug stuff
 	bool stopLoop = false;
 	for (int x = 0; x < GRAPH_SIZE; x++)
 	{
@@ -109,23 +113,26 @@ void Game::Draw()
 
 		// Game World
 		BeginMode2D(camera);
-
+			
+			// Draw Map Textures
 			map->DrawMap(graph);
 
+			// A* Pathfinding Debug
 			graph->ClearPrevious();
 			std::vector<Node*> path = graph->AStar(&graph->nodes[0][0], goal);
 			graph->Draw();
-
-			//monster->raycast.Cast(map->walls, *monster); // Raycast
-
 
 			for (int i = 0; i < (path.size() - 1) && path.size() > 0; i++)
 			{
 				DrawLineEx(path[i]->position, path[(size_t)i + 1]->position, 1.5, BLUE);
 			}
 
+			//monster->raycast.Cast(map->walls, *monster); // Raycast
+
+			// Draw Objects
 			player->Draw();
 			monster->Draw();
+
 		EndMode2D();
 
 		DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
