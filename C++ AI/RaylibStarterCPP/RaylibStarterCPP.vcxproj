@@ -168,6 +168,7 @@
     <ClCompile Include="PlayerLostCondition.cpp" />
     <ClCompile Include="Raycast.cpp" />
     <ClCompile Include="SearchAreaState.cpp" />
+    <ClCompile Include="SpotlightShader.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Transition.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="PlayerLostCondition.h" />
     <ClInclude Include="Raycast.h" />
     <ClInclude Include="SearchAreaState.h" />
+    <ClInclude Include="SpotlightShader.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Transition.h" />

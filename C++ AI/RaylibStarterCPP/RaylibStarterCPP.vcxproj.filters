@@ -99,6 +99,9 @@
     <ClCompile Include="PlayerLostCondition.cpp">
       <Filter>Source Files\Condition</Filter>
     </ClCompile>
+    <ClCompile Include="SpotlightShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="PlayerLostCondition.h">
       <Filter>Header Files\Condition</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotlightShader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

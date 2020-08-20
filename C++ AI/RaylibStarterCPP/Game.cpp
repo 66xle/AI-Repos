@@ -9,16 +9,16 @@ Player* player = new Player();
 Graph* graph = new Graph();
 // Map Textures, Collision
 Map* map = new Map();
-Node* goal;
+
 
 void Game::Init()
 {
+	SetTargetFPS(60);
+
 	map->MapSetup(graph, player);
 
-	// Set Graph Goal
-	goal = &graph->nodes[1][1];
+	spotShader.shader = spotShader.Init();
 
-	SetTargetFPS(60);
 
 	// Player
 	Image image = LoadImage("Player.png");
@@ -71,12 +71,13 @@ void Game::Update()
 {
 	deltaTime = GetFrameTime();
 
-
 	// Update Here
 	player->PlayerMovement(deltaTime, *map);
 	camera.target = player->position;
+	spotShader.shader = spotShader.Update(player);
 
 	monster->Update(deltaTime);
+
 
 	//Put game logic and input management here.
 }
@@ -99,18 +100,20 @@ void Game::Draw()
 			map->DrawMap(graph);
 
 			// Debug 
-			graph->Draw();
+			/*graph->Draw();
 			for (int i = 0; i < (graph->path.size() - 1) && graph->path.size() > 0; i++)
 			{
 				DrawLineEx(graph->path[i]->position, graph->path[(size_t)i + 1]->position, 1.5, BLUE);
 			}
-			graph->ResetNodes();
+			graph->ResetNodes();*/
 
 			// Draw Objects
 			player->Draw();
 			monster->Draw();
-
+			
 		EndMode2D();
+
+			spotShader.Draw();
 
 		DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
 
