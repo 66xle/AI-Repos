@@ -3,16 +3,21 @@
 #include "Graph.h"
 #include "Vector2Math.h"
 #include "Boundary.h"
+#include "Player.h"
+
+class Player;
 
 class Map
 {
 public:
-	void MapSetup(Graph* graph);
+	void MapSetup(Graph* graph, Player* player);
 
 	void DrawMap(Graph* graph);
 
 	std::vector<Boundary> walls;
 	std::vector<BoundingBox> boxes;
+	Player* player;
+
 	
 private:
 	Tile LoadTexture(int x, int y, bool collision);

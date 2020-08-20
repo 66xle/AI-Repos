@@ -13,7 +13,7 @@ Node* goal;
 
 void Game::Init()
 {
-	map->MapSetup(graph);
+	map->MapSetup(graph, player);
 
 	// Set Graph Goal
 	goal = &graph->nodes[1][1];
@@ -35,14 +35,22 @@ void Game::Init()
 	camera.zoom = 5.0f;
 
 	// Create States
-	ChaseState* chaseState = new ChaseState(player);
-	PatrolState* patrolState = new PatrolState(graph, map->walls);
+	ChaseState* chaseState = new ChaseState(graph, map);
+	PatrolState* patrolState = new PatrolState(graph, map);
+	SearchAreaState* searchAreaState = new SearchAreaState(graph, map);
 	// Create Conditions
-	LOSLostCondition* losLostCondition = new LOSLostCondition(monster);
+	LOSFoundCondition* losFoundCondition = new LOSFoundCondition(monster, player); // Patrol/SearchArea to Chase
+	LOSLostCondition* losLostCondition = new LOSLostCondition(monster, player); // Chase to SearchArea
+	PlayerLostCondition* playerLostCondition = new PlayerLostCondition(monster, graph); // SearchArea to Patrol
 	// Create Transitions
-	Transition* toPatrolTransition = new Transition(patrolState, losLostCondition);
+	Transition* toChaseTransition = new Transition(chaseState, losFoundCondition);
+	Transition* toSearchAreaTransition = new Transition(searchAreaState, losLostCondition);
+	Transition* toPatrolTransition = new Transition(patrolState, playerLostCondition);
 	// Add Transition
-	chaseState->AddTransition(toPatrolTransition);
+	patrolState->AddTransition(toChaseTransition);
+	chaseState->AddTransition(toSearchAreaTransition);
+	searchAreaState->AddTransition(toChaseTransition);
+	searchAreaState->AddTransition(toPatrolTransition);
 
 	// Set Behaviours
 	monster->AddBehaviour(&monsterBehaviour);
@@ -70,32 +78,6 @@ void Game::Update()
 
 	monster->Update(deltaTime);
 
-	// Debug stuff
-	bool stopLoop = false;
-	for (int x = 0; x < GRAPH_SIZE; x++)
-	{
-		for (int y = 0; y < GRAPH_SIZE; y++)
-		{
-			if (player->IsNear(&graph->nodes[x][y]))
-			{
-				goal = &graph->nodes[x][y];
-				graph->ResetNodes();
-
-				if (IsKeyPressed(KEY_SPACE))
-				{
-					graph->nodes[x][y] = graph->nodes[x][y].BlockNode();
-				}
-
-				stopLoop = true;
-				break;
-			}
-		}
-		if (stopLoop)
-		{
-			break;
-		}
-	}
-
 	//Put game logic and input management here.
 }
 
@@ -104,7 +86,6 @@ void Game::Draw()
 	std::stringstream fpsCounter;
 
 	fpsCounter << "FPS: " << GetFPS() << ", Position: " << player->position.x << ", " << player->position.y;
-	//fpsCounter << "FPS: " << GetFPS() << ", Direction: " << monster->raycast.ray.direction.x << ", " << monster->raycast.ray.direction.y;
 
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
@@ -117,17 +98,13 @@ void Game::Draw()
 			// Draw Map Textures
 			map->DrawMap(graph);
 
-			// A* Pathfinding Debug
-			graph->ClearPrevious();
-			std::vector<Node*> path = graph->AStar(&graph->nodes[0][0], goal);
+			// Debug 
 			graph->Draw();
-
-			for (int i = 0; i < (path.size() - 1) && path.size() > 0; i++)
+			for (int i = 0; i < (graph->path.size() - 1) && graph->path.size() > 0; i++)
 			{
-				DrawLineEx(path[i]->position, path[(size_t)i + 1]->position, 1.5, BLUE);
+				DrawLineEx(graph->path[i]->position, graph->path[(size_t)i + 1]->position, 1.5, BLUE);
 			}
-
-			//monster->raycast.Cast(map->walls, *monster); // Raycast
+			graph->ResetNodes();
 
 			// Draw Objects
 			player->Draw();

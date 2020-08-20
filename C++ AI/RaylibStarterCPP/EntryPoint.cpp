@@ -5,7 +5,7 @@ int main()
 {
 	Game game;
 
-	InitWindow(1024, 1024, "Hello, world!");
+	InitWindow(1024, 1024, "Escape the Monster - Crappy AI Game");
 
 	game.Init();
 

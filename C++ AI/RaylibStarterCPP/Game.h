@@ -9,8 +9,11 @@
 
 #include "ChaseState.h"
 #include "PatrolState.h"
+#include "SearchAreaState.h"
 
 #include "LOSLostCondition.h"
+#include "LOSFoundCondition.h"
+#include "PlayerLostCondition.h"
 
 class Game
 {

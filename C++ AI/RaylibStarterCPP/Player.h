@@ -5,6 +5,7 @@
 #include "Vector2Math.h"
 
 class Node;
+class Map;
 
 class Player
 {

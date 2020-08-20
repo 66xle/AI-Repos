@@ -8,7 +8,7 @@ void PatrolState::Update(Agent* agent, float deltaTime)
 
 	// Set Rotation facing Target
 	agent->rotation = atan2f(targetPath->position.y - agent->position.y, targetPath->position.x - agent->position.x);
-	agent->raycast.Cast(walls, *agent);
+	agent->raycast.Cast(map->walls, *agent);
 
 	Vector2 force = Vector2Normalise(velocity) * maxSpeed;
 
@@ -66,15 +66,18 @@ void PatrolState::Init(Agent* agent)
 	{
 		for (int y = 0; y < GRAPH_SIZE; y++)
 		{
-			float dx = abs(agent->position.x - graph->nodes[x][y].position.x);
-			float dy = abs(agent->position.y - graph->nodes[x][y].position.y);
-			float radius = 30;
-
-			if ((dx * dx) + (dy * dy) <= radius * radius)
+			if (!graph->nodes[x][y].blocked)
 			{
-				targetPath = &graph->nodes[x][y];
-				stopLoop = true;
-				break;
+				float dx = abs(agent->position.x - graph->nodes[x][y].position.x);
+				float dy = abs(agent->position.y - graph->nodes[x][y].position.y);
+				float radius = 30;
+
+				if ((dx * dx) + (dy * dy) <= radius * radius)
+				{
+					targetPath = &graph->nodes[x][y];
+					stopLoop = true;
+					break;
+				}
 			}
 		}
 		if (stopLoop)

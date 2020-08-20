@@ -1,13 +1,11 @@
 #pragma once
 #include "State.h"
-#include "Agent.h"
-#include "Map.h"
 
-class ChaseState : public State
+class SearchAreaState : public State
 {
 public:
-	ChaseState(Graph* graph, Map* map) : graph(graph), map(map) {}
-	virtual ~ChaseState() {}
+	SearchAreaState(Graph* graph, Map* map) : graph(graph), map(map) {}
+	virtual ~SearchAreaState() {}
 
 	virtual void Update(Agent* agent, float deltaTime);
 	virtual void Exit(Agent* agent);
@@ -18,8 +16,8 @@ private:
 	Map* map;
 
 	Node* targetPath = nullptr;
-	Node* playerNode = nullptr;
+	Node* searchNode = nullptr;
 
-	float maxSpeed = 5000;
+	float maxSpeed = 7000;
 };
 

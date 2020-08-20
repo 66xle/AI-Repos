@@ -1,6 +1,6 @@
 ﻿#include "Map.h"
 
-void Map::MapSetup(Graph* graph)
+void Map::MapSetup(Graph* graph, Player* player)
 {
 	// Create and Store Textures
 	textures.push_back(LoadTexture(1, 1, true));
@@ -22,7 +22,7 @@ void Map::MapSetup(Graph* graph)
 					graph->nodes[x - 1][y - 1].BlockNode();
 				}
 
-				// Create Player Box Collision
+				// Create Player Box Wall Collision
 				BoundingBox box;
 				Vector3 vec3 = { 0, 0, 0 };
 				box.min = vec3 + position;
@@ -34,6 +34,9 @@ void Map::MapSetup(Graph* graph)
 				walls.push_back(CreateWall({ position.x, position.y }, { position.x, position.y + 32 }));
 				walls.push_back(CreateWall({ position.x + 32, position.y }, { position.x + 32, position.y + 32 }));
 				walls.push_back(CreateWall({ position.x, position.y + 32 }, { position.x + 32, position.y + 32 }));
+
+				// Player 
+				this->player = player;
 			}
 		}
 	}

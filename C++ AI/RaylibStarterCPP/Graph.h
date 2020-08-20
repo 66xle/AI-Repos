@@ -10,6 +10,9 @@ class Graph
 public:
 	Node nodes[GRAPH_SIZE][GRAPH_SIZE];
 
+	// Debug Variable
+	std::vector<Node*> path;
+
 	Graph();
 	Graph(const Graph& other) = delete;
 	const Graph& operator=(const Graph& other) = delete;

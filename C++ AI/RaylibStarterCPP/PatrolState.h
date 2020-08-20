@@ -2,11 +2,12 @@
 #include "State.h"
 #include "Agent.h"
 #include "Graph.h"
+#include "Map.h"
 
 class PatrolState : public State
 {
 public:
-	PatrolState(Graph* graph, std::vector<Boundary> walls): graph(graph), walls(walls) {}
+	PatrolState(Graph* graph, Map* map): graph(graph), map(map) {}
 	virtual ~PatrolState() {}
 
 	virtual void Update(Agent* agent, float deltaTime);
@@ -18,8 +19,8 @@ private:
 	std::vector<Node*> previousPath;
 
 	Graph* graph;
-	std::vector<Boundary> walls;
+	Map* map;
 
-	float maxSpeed = 2500;
+	float maxSpeed = 3000;
 };
 
