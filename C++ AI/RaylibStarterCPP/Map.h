@@ -20,7 +20,7 @@ public:
 
 	
 private:
-	Tile LoadTexture(int x, int y, bool collision);
+	Tile LoadTexture(int x, int y);
 
 	Boundary CreateWall(Vector2 p1, Vector2 p2);
 

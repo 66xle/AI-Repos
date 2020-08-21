@@ -10,6 +10,8 @@ Graph* graph = new Graph();
 // Map Textures, Collision
 Map* map = new Map();
 
+Object* object = new Object();
+
 
 void Game::Init()
 {
@@ -19,6 +21,7 @@ void Game::Init()
 
 	spotShader.shader = spotShader.Init();
 
+	object->CreateObject("Key.png", { 115, 410 });
 
 	// Player
 	Image image = LoadImage("Player.png");
@@ -65,6 +68,7 @@ void Game::Shutdown()
 	delete monster;
 	delete map;
 	delete graph;
+	delete object;
 }
 
 void Game::Update()
@@ -75,6 +79,8 @@ void Game::Update()
 	player->PlayerMovement(deltaTime, *map);
 	camera.target = player->position;
 	spotShader.shader = spotShader.Update(player);
+
+	object->Update(player);
 
 	monster->Update(deltaTime);
 
@@ -98,6 +104,7 @@ void Game::Draw()
 			
 			// Draw Map Textures
 			map->DrawMap(graph);
+			object->Draw();
 
 			// Debug 
 			/*graph->Draw();

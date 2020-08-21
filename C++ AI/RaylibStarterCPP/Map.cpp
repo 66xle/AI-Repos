@@ -3,8 +3,8 @@
 void Map::MapSetup(Graph* graph, Player* player)
 {
 	// Create and Store Textures
-	textures.push_back(LoadTexture(1, 1, true));
-	textures.push_back(LoadTexture(153, 34, false));
+	textures.push_back(LoadTexture(1, 1));
+	textures.push_back(LoadTexture(153, 34));
 
 	Vector2 position = { 0, 0 };
 	for (int y = 0; y < 17; y++)
@@ -66,7 +66,7 @@ void Map::DrawMap(Graph* graph)
 
 
 
-Tile Map::LoadTexture(int x, int y, bool collision)
+Tile Map::LoadTexture(int x, int y)
 {
 	Rectangle rec;
 	rec.x = x;
@@ -75,7 +75,6 @@ Tile Map::LoadTexture(int x, int y, bool collision)
 	rec.height = 16;
 
 	Tile tile;
-	tile.collision = collision;
 
 	Image* cropImage = &LoadImage("Map.png");
 	ImageCrop(cropImage, rec);

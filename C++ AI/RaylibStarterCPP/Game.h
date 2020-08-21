@@ -7,6 +7,7 @@
 #include "Map.h"
 #include "FiniteStateMachine.h"
 #include "SpotlightShader.h"
+#include "Object.h"
 
 #include "ChaseState.h"
 #include "PatrolState.h"
