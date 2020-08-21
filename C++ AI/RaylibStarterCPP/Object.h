@@ -13,8 +13,8 @@ public:
 
 	int keys = 0;
 
-	void CreateObject(const char* texName, Vector2 position);
-	void Update(Player* player);
+	void CreateObject(const char* texName, Graph* graph);
+	void Update(Player* player, Graph* graph);
 	void Draw();
 };
 

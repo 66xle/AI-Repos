@@ -21,7 +21,7 @@ void Game::Init()
 
 	spotShader.shader = spotShader.Init();
 
-	object->CreateObject("Key.png", { 115, 410 });
+	object->CreateObject("Key.png", graph);
 
 	// Player
 	Image image = LoadImage("Player.png");
@@ -80,7 +80,7 @@ void Game::Update()
 	camera.target = player->position;
 	spotShader.shader = spotShader.Update(player);
 
-	object->Update(player);
+	object->Update(player, graph);
 
 	monster->Update(deltaTime);
 

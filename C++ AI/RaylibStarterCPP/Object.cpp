@@ -1,13 +1,29 @@
 #include "Object.h"
+#include <time.h>
 
-void Object::CreateObject(const char* texName, Vector2 position)
+Vector2 RandomLocation(Graph* graph)
+{
+	while (true)
+	{
+		srand(time(NULL));
+		int x = rand() % 15;
+		int y = rand() % 15;
+		if (!graph->nodes[x][y].blocked)
+		{
+			return graph->nodes[x][y].position;
+		}
+	}
+
+}
+
+void Object::CreateObject(const char* texName, Graph* graph)
 {
 	Image image = LoadImage(texName);
 	texture = LoadTextureFromImage(image);
-	this->position = position;
+	this->position = RandomLocation(graph);
 }
 
-void Object::Update(Player* player)
+void Object::Update(Player* player, Graph* graph)
 {
 	Vector3 adjust = { 0, 0, 0 };
 
@@ -25,13 +41,13 @@ void Object::Update(Player* player)
 
 		if (keys == 1)
 		{
-			position = { 467, 215 };
+			position = RandomLocation(graph);
 		}
 		if (keys == 2)
 		{
 			Image image = LoadImage("Door.png");
 			texture = LoadTextureFromImage(image);
-			position = { 240, 185 };
+			position = RandomLocation(graph);
 		}
 	}
 }
@@ -60,7 +76,7 @@ void Object::Draw()
 	else
 	{
 		pivot = { (float)texture.width, (float)texture.height};
-		scale = 0.5;
+		scale = 0.4;
 	}
 	
 	DrawTextureWithPivot(texture, position, pivot, 0, scale);

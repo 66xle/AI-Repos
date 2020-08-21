@@ -11,8 +11,8 @@ void Map::MapSetup(Graph* graph, Player* player)
 	{
 		for (int x = 0; x < 17; x++)
 		{
-			position.x = x * 32;
-			position.y = y * 32;
+			position.x = (float)x * 32;
+			position.y = (float)y * 32;
 
 			if (mapArray[x][y] == 'W')
 			{
@@ -49,8 +49,8 @@ void Map::DrawMap(Graph* graph)
 	{
 		for (int x = 0; x < 17; x++)
 		{
-			position.x = x * 32;
-			position.y = y * 32;
+			position.x = (float)x * 32;
+			position.y = (float)y * 32;
 
 			if (mapArray[x][y] == 'W')
 			{
@@ -69,8 +69,8 @@ void Map::DrawMap(Graph* graph)
 Tile Map::LoadTexture(int x, int y)
 {
 	Rectangle rec;
-	rec.x = x;
-	rec.y = y;
+	rec.x = (float)x;
+	rec.y = (float)y;
 	rec.width = 16;
 	rec.height = 16;
 
