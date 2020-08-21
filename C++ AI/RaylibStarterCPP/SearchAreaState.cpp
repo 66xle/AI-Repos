@@ -25,7 +25,7 @@ void SearchAreaState::Update(Agent* agent, float deltaTime)
 			targetPath = graph->path[0];
 			float dx = abs(map->player->position.x - targetPath->position.x);
 			float dy = abs(map->player->position.y - targetPath->position.y);
-			float radius = 64;
+			float radius = 100;
 
 			if ((dx * dx) + (dy * dy) <= radius * radius)
 			{

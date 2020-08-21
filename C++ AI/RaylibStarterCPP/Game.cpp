@@ -59,6 +59,7 @@ void Game::Init()
 	monster->AddBehaviour(&monsterBehaviour);
 	monsterBehaviour.AddState(chaseState);
 	monsterBehaviour.AddState(patrolState);
+	monsterBehaviour.AddState(searchAreaState);
 	monsterBehaviour.SetCurrentState(chaseState);
 }
 
@@ -78,6 +79,11 @@ void Game::Update()
 	{
 		if (player->dead == false)
 		{
+			if (monster->position.x < 0 || monster->position.y < 0)
+			{
+				monster->position = { 300, 100 };
+			}
+
 			// Update Here
 			player->PlayerMovement(deltaTime, *map);
 			camera.target = player->position;
@@ -98,7 +104,7 @@ void Game::Draw()
 {
 	std::stringstream fpsCounter;
 
-	fpsCounter << "FPS: " << GetFPS();
+	fpsCounter << "FPS: " << GetFPS() << " Monster Pos: " << monster->position.x << ", " << monster->position.y;
 
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
