@@ -147,7 +147,7 @@ void Game::Draw()
 				spotShader.Draw();
 
 				// Display Fps
-				DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
+				//DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
 			}
 			else
 			{
