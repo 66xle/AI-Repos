@@ -16,5 +16,7 @@ public:
 	void CreateObject(const char* texName, Graph* graph);
 	void Update(Player* player, Graph* graph);
 	void Draw();
+private:
+	Texture door;
 };
 

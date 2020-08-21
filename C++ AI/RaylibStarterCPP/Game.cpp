@@ -74,16 +74,17 @@ void Game::Shutdown()
 void Game::Update()
 {
 	deltaTime = GetFrameTime();
+	if (object->keys != 4)
+	{
+		// Update Here
+		player->PlayerMovement(deltaTime, *map);
+		camera.target = player->position;
+		spotShader.shader = spotShader.Update(player);
 
-	// Update Here
-	player->PlayerMovement(deltaTime, *map);
-	camera.target = player->position;
-	spotShader.shader = spotShader.Update(player);
+		monster->Update(deltaTime);
 
-	object->Update(player, graph);
-
-	monster->Update(deltaTime);
-
+		object->Update(player, graph);
+	}
 
 	//Put game logic and input management here.
 }
@@ -92,16 +93,17 @@ void Game::Draw()
 {
 	std::stringstream fpsCounter;
 
-	fpsCounter << "FPS: " << GetFPS() << ", Position: " << player->position.x << ", " << player->position.y;
+	fpsCounter << "FPS: " << GetFPS();
 
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
-
-		ClearBackground(BLACK);
-
-		// Game World
-		BeginMode2D(camera);
+	ClearBackground(BLACK);
+		if (object->keys != 4)
+		{
 			
+			// Game World
+			BeginMode2D(camera);
+
 			// Draw Map Textures
 			map->DrawMap(graph);
 			object->Draw();
@@ -117,12 +119,20 @@ void Game::Draw()
 			// Draw Objects
 			player->Draw();
 			monster->Draw();
-			
-		EndMode2D();
 
-			spotShader.Draw();
+			EndMode2D();
 
-		DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
+			//spotShader.Draw();
+
+			DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
+		}
+		else
+		{
+			std::stringstream message;
+			message << "You Win!";
+			DrawText(message.str().c_str(), 300, GetScreenHeight() / 2, 100, RED);
+		}
+		
 
 	EndDrawing();	//...and before this one.
 }

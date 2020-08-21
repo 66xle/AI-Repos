@@ -16,11 +16,16 @@ Vector2 RandomLocation(Graph* graph)
 
 }
 
+
+
 void Object::CreateObject(const char* texName, Graph* graph)
 {
 	Image image = LoadImage(texName);
 	texture = LoadTextureFromImage(image);
 	this->position = RandomLocation(graph);
+
+	image = LoadImage("Door.png");
+	door = LoadTextureFromImage(image);
 }
 
 void Object::Update(Player* player, Graph* graph)
@@ -39,14 +44,13 @@ void Object::Update(Player* player, Graph* graph)
 	{
 		keys++;
 
-		if (keys == 1)
+		if (keys < 3)
 		{
 			position = RandomLocation(graph);
 		}
-		if (keys == 2)
+		else if (keys == 3)
 		{
-			Image image = LoadImage("Door.png");
-			texture = LoadTextureFromImage(image);
+			texture = door;
 			position = RandomLocation(graph);
 		}
 	}
@@ -69,7 +73,7 @@ void Object::Draw()
 {
 	Vector2 pivot = { 0, 0 };
 	float scale = 0.2;
-	if (keys < 2)
+	if (keys < 3)
 	{
 		pivot = { (float)texture.width / 8, (float)texture.height / 8 };
 	}
