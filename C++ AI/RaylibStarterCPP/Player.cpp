@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "Agent.h"
+#include "Vector2Math.h"
 
 void Player::PlayerMovement(float deltaTime, Map map)
 {
@@ -107,6 +109,26 @@ void Player::Draw()
 {
 	Vector2 pivot = { texture.width / 2, texture.height / 2 };
 	DrawTextureWithPivot(texture, position, pivot, 0);
+}
+
+void Player::CheckIfDead(Agent* agent)
+{
+	Vector3 adjust = { 0, 0, 0 };
+	
+	BoundingBox playerBox;
+	playerBox.min = adjust + (position - 6.5f);
+	playerBox.max = adjust + (position + 6.5f);
+
+	BoundingBox monsterbox;
+	adjust = { 0, 0, 0 };
+	monsterbox.min = adjust + (agent->position - 4.0f);
+	monsterbox.max = adjust + (agent->position + 8.0f);
+
+
+	if (CheckCollisionBoxes(playerBox, monsterbox))
+	{
+		dead = true;
+	}
 }
 
 bool Player::IsNear(Node* node)

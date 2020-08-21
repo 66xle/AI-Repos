@@ -76,14 +76,19 @@ void Game::Update()
 	deltaTime = GetFrameTime();
 	if (object->keys != 4)
 	{
-		// Update Here
-		player->PlayerMovement(deltaTime, *map);
-		camera.target = player->position;
-		spotShader.shader = spotShader.Update(player);
+		if (player->dead == false)
+		{
+			// Update Here
+			player->PlayerMovement(deltaTime, *map);
+			camera.target = player->position;
+			spotShader.shader = spotShader.Update(player);
 
-		monster->Update(deltaTime);
+			monster->Update(deltaTime);
 
-		object->Update(player, graph);
+			player->CheckIfDead(monster);
+
+			object->Update(player, graph);
+		}
 	}
 
 	//Put game logic and input management here.
@@ -100,31 +105,42 @@ void Game::Draw()
 	ClearBackground(BLACK);
 		if (object->keys != 4)
 		{
-			
-			// Game World
-			BeginMode2D(camera);
-
-			// Draw Map Textures
-			map->DrawMap(graph);
-			object->Draw();
-
-			// Debug 
-			/*graph->Draw();
-			for (int i = 0; i < (graph->path.size() - 1) && graph->path.size() > 0; i++)
+			if (player->dead == false)
 			{
-				DrawLineEx(graph->path[i]->position, graph->path[(size_t)i + 1]->position, 1.5, BLUE);
+				// Game World
+				BeginMode2D(camera);
+
+				// Draw Map Textures
+				map->DrawMap(graph);
+				object->Draw();
+
+				// Debug 
+
+				/*graph->Draw();
+				for (int i = 0; i < (graph->path.size() - 1) && graph->path.size() > 0; i++)
+				{
+					DrawLineEx(graph->path[i]->position, graph->path[(size_t)i + 1]->position, 1.5, BLUE);
+				}
+				graph->ResetNodes();*/
+
+				// Draw Objects
+				player->Draw();
+				DrawCircle(player->position.x, player->position.y, 2, PURPLE);
+				monster->Draw();
+				DrawCircle(monster->position.x, monster->position.y, 2, PURPLE);
+
+				EndMode2D();
+
+				//spotShader.Draw();
+
+				DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
 			}
-			graph->ResetNodes();*/
-
-			// Draw Objects
-			player->Draw();
-			monster->Draw();
-
-			EndMode2D();
-
-			//spotShader.Draw();
-
-			DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
+			else
+			{
+				std::stringstream message;
+				message << "You Died!";
+				DrawText(message.str().c_str(), 300, GetScreenHeight() / 2, 100, RED);
+			}
 		}
 		else
 		{
