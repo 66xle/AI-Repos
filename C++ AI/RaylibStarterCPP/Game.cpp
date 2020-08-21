@@ -125,13 +125,11 @@ void Game::Draw()
 
 				// Draw Objects
 				player->Draw();
-				DrawCircle(player->position.x, player->position.y, 2, PURPLE);
 				monster->Draw();
-				DrawCircle(monster->position.x, monster->position.y, 2, PURPLE);
 
 				EndMode2D();
 
-				//spotShader.Draw();
+				spotShader.Draw();
 
 				DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
 			}
