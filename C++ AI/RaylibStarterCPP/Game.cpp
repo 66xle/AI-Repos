@@ -17,10 +17,13 @@ void Game::Init()
 {
 	SetTargetFPS(60);
 
+	// Load Map textures and Create Wall Boundaries
 	map->MapSetup(graph, player);
 
+	// Setup Spotlight
 	spotShader.shader = spotShader.Init();
 
+	// Load and Create Key
 	object->CreateObject("Key.png", graph);
 
 	// Player
@@ -75,10 +78,13 @@ void Game::Shutdown()
 void Game::Update()
 {
 	deltaTime = GetFrameTime();
+	// Check if player wins
 	if (object->keys != 4)
 	{
+		// Check if player is alive
 		if (player->dead == false)
 		{
+			// When monster position spawns outside of map
 			if (monster->position.x < 0 || monster->position.y < 0)
 			{
 				monster->position = { 300, 100 };
@@ -109,38 +115,43 @@ void Game::Draw()
 	// Player HUD
 	BeginDrawing();	//Rendering code comes after this call...
 	ClearBackground(BLACK);
+		// Check if player wins
 		if (object->keys != 4)
-		{
+		{	
+			// Check if player is alive
 			if (player->dead == false)
 			{
 				// Game World
 				BeginMode2D(camera);
 
-				// Draw Map Textures
-				map->DrawMap(graph);
-				object->Draw();
+					// Draw Map Textures
+					map->DrawMap(graph);
+					object->Draw();
 
-				// Debug 
+					// Debug 
 
-				/*graph->Draw();
-				for (int i = 0; i < (graph->path.size() - 1) && graph->path.size() > 0; i++)
-				{
-					DrawLineEx(graph->path[i]->position, graph->path[(size_t)i + 1]->position, 1.5, BLUE);
-				}
-				graph->ResetNodes();*/
+					/*graph->Draw();
+					for (int i = 0; i < (graph->path.size() - 1) && graph->path.size() > 0; i++)
+					{
+						DrawLineEx(graph->path[i]->position, graph->path[(size_t)i + 1]->position, 1.5, BLUE);
+					}
+					graph->ResetNodes();*/
 
-				// Draw Objects
-				player->Draw();
-				monster->Draw();
+					// Draw Objects
+					player->Draw();
+					monster->Draw();
 
 				EndMode2D();
 
+				// Draw Spotlight Shader
 				spotShader.Draw();
 
+				// Display Fps
 				DrawText(fpsCounter.str().c_str(), 10, 10, 20, RED);
 			}
 			else
 			{
+				// Player Lose Message
 				std::stringstream message;
 				message << "You Died!";
 				DrawText(message.str().c_str(), 300, GetScreenHeight() / 2, 100, RED);
@@ -148,6 +159,7 @@ void Game::Draw()
 		}
 		else
 		{
+			// Player Win Message
 			std::stringstream message;
 			message << "You Win!";
 			DrawText(message.str().c_str(), 300, GetScreenHeight() / 2, 100, RED);

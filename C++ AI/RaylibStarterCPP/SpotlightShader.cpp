@@ -22,7 +22,7 @@ Shader SpotlightShader::Init()
 	}
 
 	// tell the shader how wide the screen is so we can have
-	// a pitch black half and a dimly lit half.
+	// a pitch black screen.
 	{
 		unsigned int wLoc = GetShaderLocation(shader, "screenWidth");
 		float sw = 512;
@@ -51,8 +51,6 @@ Shader SpotlightShader::Update(Player* player)
 	// Update the spots, send them to the shader
 	for (int i = 0; i < MAXSPOT; i++)
 	{
-		//Vector2 mp = player->position;
-		//Vector2 mp = GetMousePosition();
 		spots[i].pos.x = GetScreenWidth() / 2;
 		spots[i].pos.y = GetScreenHeight() / 2;
 

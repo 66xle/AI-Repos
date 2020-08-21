@@ -7,6 +7,7 @@ void Raycast::Cast(std::vector<Boundary> walls, Agent agent)
 	rays.clear();
 	float rayAngle = agent.rotation - (22.50f * DEG2RAD);
 
+	// Loop through every ray
 	for (float i = 0; i < 45; i += 0.5)
 	{
 		Ray ray;
@@ -14,6 +15,7 @@ void Raycast::Cast(std::vector<Boundary> walls, Agent agent)
 		ray.position = adjustPosition + agent.position;
 		ray.direction = { (float)(500 * cos(rayAngle + (i * DEG2RAD))) + agent.position.x, (float)(500 * sin(rayAngle + (i * DEG2RAD))) + agent.position.y, 0 };
 
+		// Loop through every wall for each ray
 		for (Boundary wall : walls)
 		{
 			float x1 = wall.p1.x;
@@ -47,6 +49,7 @@ void Raycast::Cast(std::vector<Boundary> walls, Agent agent)
 				double ry = (double)ray.position.y - ray.direction.y;
 				float shortDistance = sqrt((rx * rx) + (ry * ry));
 
+				// Closest ray distances to monster
 				if (distance < shortDistance)
 				{
 					Vector3 adjust = { 0, 0, 0 };

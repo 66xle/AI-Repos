@@ -3,6 +3,7 @@
 
 Vector2 RandomLocation(Graph* graph)
 {
+	//Gets a random location on the map
 	while (true)
 	{
 		srand(time(NULL));
@@ -20,6 +21,7 @@ Vector2 RandomLocation(Graph* graph)
 
 void Object::CreateObject(const char* texName, Graph* graph)
 {
+	// Load Key and Door Images
 	Image image = LoadImage(texName);
 	texture = LoadTextureFromImage(image);
 	this->position = RandomLocation(graph);
@@ -39,7 +41,8 @@ void Object::Update(Player* player, Graph* graph)
 	BoundingBox objectBox;
 	objectBox.min = adjust + (position - 3.5f);
 	objectBox.max = adjust + (position + 3.5f);
-
+	
+	// Check If player collects keys, escapes through door
 	if (CheckCollisionBoxes(playerBox, objectBox))
 	{
 		keys++;
@@ -75,10 +78,12 @@ void Object::Draw()
 	float scale = 0.2;
 	if (keys < 3)
 	{
+		// Draw Keys
 		pivot = { (float)texture.width / 8, (float)texture.height / 8 };
 	}
 	else
 	{
+		// Draw Door
 		pivot = { (float)texture.width, (float)texture.height};
 		scale = 0.4;
 	}

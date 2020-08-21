@@ -22,6 +22,7 @@ void PatrolState::Update(Agent* agent, float deltaTime)
 
 	if ((dx * dx) + (dy * dy) <= radius * radius)
 	{
+		// Remove last 2 previous nodes the monster has visited
 		std::vector<Node*> randomPath = targetPath->connections;
 		for (Node* previous : previousPath)
 		{
@@ -42,7 +43,7 @@ void PatrolState::Update(Agent* agent, float deltaTime)
 		previousPath.push_back(targetPath);
 		if (randomPath.size() == 0)
 		{
-			std::cout << "No Path";
+			//std::cout << "No Path";
 			targetPath = targetPath->connections[0];
 		}
 		else
@@ -66,6 +67,7 @@ void PatrolState::Init(Agent* agent)
 	{
 		for (int y = 0; y < GRAPH_SIZE; y++)
 		{
+			// Find nearest node to the monster
 			if (!graph->nodes[x][y].blocked)
 			{
 				float dx = abs(agent->position.x - graph->nodes[x][y].position.x);

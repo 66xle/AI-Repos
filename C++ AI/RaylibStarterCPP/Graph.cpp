@@ -2,16 +2,19 @@
 
 Graph::Graph()
 {
+	// Create the Graph
 	for (int x = 0; x < GRAPH_SIZE; x++)
 	{
 		for (int y = 0; y < GRAPH_SIZE; y++)
 		{
+			// Get Nodes Position
 			nodes[x][y].position = { (float)x * NODE_SPACING + NODE_SPACING + 15.0f, (float)y * NODE_SPACING + NODE_SPACING + 15.0f };
 
 			for (int xOffset = -1; xOffset <= 1; xOffset++)
 			{
 				for (int yOffset = -1; yOffset <= 1; yOffset++)
 				{
+					// Connect Nodes Together
 					ConnectNodesIfPossible(x, y, x + xOffset, y + yOffset);
 				}
 			}

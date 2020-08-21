@@ -15,6 +15,7 @@ void SearchAreaState::Update(Agent* agent, float deltaTime)
 
 	if ((dx * dx) + (dy * dy) <= radius * radius)
 	{
+		// Erase current node the monster is on
 		graph->path.erase(graph->path.begin() + graph->path.size() - 1);
 		if (graph->path.size() >= 2)
 		{
@@ -36,6 +37,7 @@ void SearchAreaState::Update(Agent* agent, float deltaTime)
 					{
 						if (!graph->nodes[x][y].blocked)
 						{
+							// Finds nearest node where the player is
 							if (map->player->IsNear(&graph->nodes[x][y]))
 							{
 								searchNode = &graph->nodes[x][y];
@@ -94,6 +96,7 @@ void SearchAreaState::Init(Agent* agent)
 		{
 			if (!graph->nodes[x][y].blocked)
 			{
+				// Find nearest node the monster is at
 				float dx = abs(agent->position.x - graph->nodes[x][y].position.x);
 				float dy = abs(agent->position.y - graph->nodes[x][y].position.y);
 				float radius = 30;
@@ -119,6 +122,7 @@ void SearchAreaState::Init(Agent* agent)
 		{
 			if (!graph->nodes[x][y].blocked)
 			{
+				// Find nearest node the player is at
 				if (map->player->IsNear(&graph->nodes[x][y]))
 				{
 					searchNode = &graph->nodes[x][y];

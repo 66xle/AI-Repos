@@ -10,8 +10,6 @@ void ChaseState::Update(Agent* agent, float deltaTime)
 
 	Vector2 force = Vector2Normalise(velocity) * maxSpeed;
 
-	//Vector2 force = desiredVelocity - agent->velocity;
-
 	agent->velocity = (force * deltaTime);
 	agent->position = agent->position + (agent->velocity * deltaTime);
 
@@ -29,11 +27,13 @@ void ChaseState::Update(Agent* agent, float deltaTime)
 			{
 				if (!graph->nodes[x][y].blocked)
 				{
+					// Gets the nearest node where the player is
 					if (map->player->IsNear(&graph->nodes[x][y]))
 					{
 						playerNode = &graph->nodes[x][y];
 						graph->ClearPrevious();
-						std::vector<Node*> path = graph->AStar(targetPath, playerNode);
+						// Calculate path from monster to player
+						std::vector<Node*> path = graph->AStar(targetPath, playerNode); 
 
 						graph->path = path; // Debug
 
@@ -72,6 +72,7 @@ void ChaseState::Init(Agent* agent)
 	{
 		for (int y = 0; y < GRAPH_SIZE; y++)
 		{
+			// Find the nearest node to the monster
 			if (!graph->nodes[x][y].blocked)
 			{
 				float dx = abs(agent->position.x - graph->nodes[x][y].position.x);
